@@ -19,5 +19,18 @@
             {% endfor %}
         </tbody>
     </table>
+    <table id="grid">
+        <tbody>
+            {% for row in testGame.grid.rows %}
+            <tr>
+                {% for column in testGame.grid.columns %}
+                <td>
+                    {{ row }}{{ column }}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>

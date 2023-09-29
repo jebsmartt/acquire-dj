@@ -4,6 +4,6 @@ table {
 
 td {
     border: 1px solid #000; /* 1px solid black border for table cells */
-    padding: 8px; /* Add padding for cell content */
+    padding: 12px; /* Add padding for cell content */
     text-align: left; /* Align text to the left within cells */
 }

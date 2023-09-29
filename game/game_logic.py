@@ -32,7 +32,7 @@ class Space:
 class Grid:
     # Represents the gameboard grid of spaces on which the player plays
     rows = ['A','B','C','D','E','F','G','H','I']
-    columns = [1,2,3,4,5,6,7,8,9,10]
+    columns = [1,2,3,4,5,6,7,8,9,10,11,12]
 
     def __init__(self):
         self.spaces = []
