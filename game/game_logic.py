@@ -15,11 +15,12 @@ class TileBag:
     def __init__(self):
         self.contents = []
 
-    def fill_bag(self):
+        # fill the bag
         for r in TileBag.rows:
             for c in TileBag.columns:
                 new_tile = Tile(r,c)
                 self.contents.append(new_tile)
+        
 
 class Space:
     # Represents spaces on the game board
@@ -35,15 +36,36 @@ class Grid:
 
     def __init__(self):
         self.spaces = []
-
-    def set_grid(self):
+        
+        # fill the grid with spaces
         for r in Grid.rows:
             for c in Grid.columns:
                 space = Space(r,c)
                 self.spaces.append(space)
 
-    def print_grid(self):
-        pp_grid = []
-        for s in self.spaces:    
-            pp_grid.append(s.name)
-        print(pp_grid)
+class Player:
+    
+    def __init__(self , username):
+        self.username = username
+        self.tile_tray = []
+
+    def draw_tile(self,tileBag):
+        self.tile_tray.append(tileBag.contents.pop(0))
+
+
+class Game:
+
+    def __init__(self):
+        self.tileBag = TileBag()
+        self.grid = Grid()
+        self.players = []
+        self.activePlayerIndex = None
+
+    def setup_game(self):
+        for player in self.players:
+            while len(player.tile_tray) < 6:
+                player.draw_tile(self.tileBag)
+
+    
+    def end_turn(self):
+        self.activePlayerIndex = (self.activePlayerIndex + 1) % len(self.players)
