@@ -14,6 +14,13 @@ def gameSession(request):
 
     testGame.setup_game()
 
+    if request.method == 'POST':
+        # Check if a "play_tile_action" button was clicked
+        if 'play_tile_action' in request.POST:
+            # Handle the button click here
+            # You can perform any desired actions
+            return HttpResponse('Button Clicked!')
+
     return render(request, 'game_board.html', {'testGame': testGame})
 
 

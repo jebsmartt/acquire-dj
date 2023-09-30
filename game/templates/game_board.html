@@ -10,15 +10,31 @@
 <body>
     <h1>Acquire!</h1>
     <h3>Players</h3>
-    <table>
-        <tbody>
-            {% for player in testGame.players %}
-            <tr>
-                <td>{{ player.username }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div id="players">
+        {% for player in testGame.players %}
+        <table class="player-table">
+            <thead>
+                <tr><td>{{ player.username }}</td></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <form method="post" action="">
+                            {% csrf_token %}
+
+                            {% for tile in player.tile_tray %}
+                            <button type="submit" name="play_tile_action" value="button{{ tile.name }}">{{ tile.name }}</button>
+                            {% endfor %}
+
+                        </form>
+                        
+                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        {% endfor %}
+    </div>
     <table id="grid">
         <tbody>
             {% for row in testGame.grid.rows %}

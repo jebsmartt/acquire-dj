@@ -5,5 +5,11 @@ table {
 td {
     border: 1px solid #000; /* 1px solid black border for table cells */
     padding: 12px; /* Add padding for cell content */
-    text-align: left; /* Align text to the left within cells */
+    text-align: center; /* Align text to the left within cells */
+}
+
+#players {
+    display: flex;
+    justify-content: space-evenly;
+    padding-bottom: 10px;
 }
