@@ -1,4 +1,5 @@
 # Created to house logic for the game
+import random
 
 class Tile:
     # Represents a tile that a player can play
@@ -65,14 +66,28 @@ class Game:
         self.activePlayerIndex = None
 
     def setup_game(self):
+        activePlayers = 0
         for player in self.players:
+            activePlayers += 1
             while len(player.tile_tray) < 6:
                 player.draw_tile(self.tileBag)
 
-    def play_tile(self, tileName):
+        self.activePlayerIndex = random.randint(0,activePlayers-1)
+
+    def play_tile(self, playerSeat, playerUsername, tileName):
+        filtered_tile_tray = []
+
+        for player in self.players:
+            if playerSeat == str(player.seat):
+                for tile in player.tile_tray:
+                    if tile.name != tileName:
+                        filtered_tile_tray.append(tile)
+                player.tile_tray = filtered_tile_tray
+                
         for space in self.grid.spaces:
             if tileName == space.name:
                 space.occupancy = "indep"
+        
     
     def end_turn(self):
         self.activePlayerIndex = (self.activePlayerIndex + 1) % len(self.players)

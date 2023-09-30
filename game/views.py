@@ -11,7 +11,6 @@ for player in testPlayers:
     testGame.players.append(gl.Player(player))
 
 testGame.setup_game()
-print("setting up game")
 
 # Create your views here.
 def gameSession(request):
@@ -22,8 +21,7 @@ def gameSession(request):
             playerSeat = request.POST.get('player_seat')
             playerUsername = request.POST.get('player_username')
             tileName = request.POST.get('play_tile_action')
-            
-            testGame.play_tile(tileName)
 
+            testGame.play_tile(playerSeat, playerUsername, tileName)
 
     return render(request, 'game_board.html', {'testGame': testGame})
