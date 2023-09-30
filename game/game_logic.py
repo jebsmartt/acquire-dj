@@ -28,6 +28,7 @@ class Space:
         self.row = row
         self.column = column
         self.name = f'{row}{column}'
+        self.occupancy = "empty"
 
 class Grid:
     # Represents the gameboard grid of spaces on which the player plays
@@ -44,8 +45,10 @@ class Grid:
                 self.spaces.append(space)
 
 class Player:
-    
+    seats = [0,1,2,3,4,5]
+
     def __init__(self , username):
+        self.seat = Player.seats.pop(0)
         self.username = username
         self.tile_tray = []
 
@@ -66,6 +69,10 @@ class Game:
             while len(player.tile_tray) < 6:
                 player.draw_tile(self.tileBag)
 
+    def play_tile(self, tileName):
+        for space in self.grid.spaces:
+            if tileName == space.name:
+                space.occupancy = "indep"
     
     def end_turn(self):
         self.activePlayerIndex = (self.activePlayerIndex + 1) % len(self.players)

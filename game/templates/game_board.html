@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'game/style.css' %}">
+    <link rel="stylesheet" href="{% static 'game/style.css' %}" defer>
     <title>Acquire!</title>
 </head>
 <body>
@@ -22,31 +22,32 @@
                         <form method="post" action="">
                             {% csrf_token %}
 
+                            <input type="hidden" name="player_seat" value="{{ player.seat }}">
+                            <input type="hidden" name="player_username" value="{{ player.username }}">
                             {% for tile in player.tile_tray %}
-                            <button type="submit" name="play_tile_action" value="button{{ tile.name }}">{{ tile.name }}</button>
+                            <button type="submit" name="play_tile_action" value="{{ tile.name }}">{{ tile.name }}</button>
                             {% endfor %}
-
                         </form>
-                        
-                        
                     </td>
                 </tr>
             </tbody>
         </table>
         {% endfor %}
     </div>
-    <table id="grid">
-        <tbody>
-            {% for row in testGame.grid.rows %}
-            <tr>
-                {% for column in testGame.grid.columns %}
-                <td>
-                    {{ row }}{{ column }}
-                </td>
-                {% endfor %}
-            </tr>
+
+    {% comment %} div around entire grid {% endcomment %}
+    <div id="grid">
+        {% comment %} generate a div for each row {% endcomment %}
+        {% for row in testGame.grid.rows %}
+        <div class="grid-row">
+            {% comment %} generate a div for each space {% endcomment %}
+            {% for space in testGame.grid.spaces %}
+                {% if space.row == row %}
+                <div class="grid-space-{{ space.occupancy }}">{{ space.name }}</div>
+                {% endif %}
             {% endfor %}
-        </tbody>
-    </table>
+        </div>
+        {% endfor %}
+    </div>
 </body>
 </html>

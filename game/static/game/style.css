@@ -1,3 +1,7 @@
+body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
 table {
     border: 1px solid black
 }
@@ -12,4 +16,39 @@ td {
     display: flex;
     justify-content: space-evenly;
     padding-bottom: 10px;
+}
+
+#grid {
+    gap: 10px;
+}
+
+.grid-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.grid-space-empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    min-width: 40px;
+    min-height: 40px;
+    
+}
+
+.grid-space-indep {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    min-width: 40px;
+    min-height: 40px;
+    
 }
