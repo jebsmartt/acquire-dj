@@ -9,8 +9,75 @@
 </head>
 <body>
     <h1>Acquire!</h1>
-    <h3>Players</h3>
-    <div id="players">
+
+    <div class="playersSection">
+        {% for player in testGame.players %}
+            {% if player.active == True %}
+            <div class="activePlayer">
+                <table class="player-table">
+                    <thead>
+                        <tr><td>{{ player.username }}</td></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <form method="post" action="">
+                                    {% csrf_token %}
+        
+                                    <input type="hidden" name="player_seat" value="{{ player.seat }}">
+                                    <input type="hidden" name="player_username" value="{{ player.username }}">
+                                    {% for tile in player.tile_tray %}
+                                    <button type="submit" name="play_tile_action" value="{{ tile.name }}">{{ tile.name }}</button>
+                                    {% endfor %}
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <form method="post" action="">
+                                    {% csrf_token %}
+        
+                                    <input type="hidden" name="player_seat" value="{{ player.seat }}">
+                                    <input type="hidden" name="player_username" value="{{ player.username }}">
+                                    <button type="submit" name="end_turn_action" value="True">End Turn</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+        {% endfor %}
+        <div class="inactivePlayers">
+            {% for player in testGame.players %}
+                {% if player.active == False  %}
+                <table class="player-table">
+                    <thead>
+                        <tr><td>{{ player.username }}</td></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <form method="post" action="">
+                                    {% csrf_token %}
+
+                                    <input type="hidden" name="player_seat" value="{{ player.seat }}">
+                                    <input type="hidden" name="player_username" value="{{ player.username }}">
+                                    {% for tile in player.tile_tray %}
+                                    <button disabled type="submit" name="play_tile_action" value="{{ tile.name }}">{{ tile.name }}</button>
+                                    {% endfor %}
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                {% endif %}
+            {% endfor %}
+        </div>
+        
+    </div>
+
+    {% comment %} <div id="players">
         {% for player in testGame.players %}
         <table class="player-table">
             <thead>
@@ -33,7 +100,7 @@
             </tbody>
         </table>
         {% endfor %}
-    </div>
+    </div> {% endcomment %}
 
     {% comment %} div around entire grid {% endcomment %}
     <div id="grid">

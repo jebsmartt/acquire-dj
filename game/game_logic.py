@@ -51,6 +51,7 @@ class Player:
     def __init__(self , username):
         self.seat = Player.seats.pop(0)
         self.username = username
+        self.active = False
         self.tile_tray = []
 
     def draw_tile(self,tileBag):
@@ -72,13 +73,20 @@ class Game:
             while len(player.tile_tray) < 6:
                 player.draw_tile(self.tileBag)
 
+        # Choose a random player to start
         self.activePlayerIndex = random.randint(0,activePlayers-1)
+        print(self.activePlayerIndex)
+        # Set the player to active
+        for player in self.players:
+            if player.seat == self.activePlayerIndex:
+                player.active = True
+
 
     def play_tile(self, playerSeat, playerUsername, tileName):
         filtered_tile_tray = []
 
         for player in self.players:
-            if playerSeat == str(player.seat):
+            if playerSeat == player.seat:
                 for tile in player.tile_tray:
                     if tile.name != tileName:
                         filtered_tile_tray.append(tile)
@@ -89,5 +97,12 @@ class Game:
                 space.occupancy = "indep"
         
     
-    def end_turn(self):
+    def end_turn(self, playerSeat):
+        for player in self.players:
+            if player.seat == playerSeat:
+                player.active = False
         self.activePlayerIndex = (self.activePlayerIndex + 1) % len(self.players)
+        for player in self.players:
+            if player.seat == self.activePlayerIndex:
+                player.active = True
+                

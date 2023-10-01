@@ -18,10 +18,16 @@ def gameSession(request):
     if request.method == 'POST':
         # Check if a "play_tile_action" button was clicked
         if 'play_tile_action' in request.POST:
-            playerSeat = request.POST.get('player_seat')
+            playerSeat = int(request.POST.get('player_seat'))
             playerUsername = request.POST.get('player_username')
             tileName = request.POST.get('play_tile_action')
 
             testGame.play_tile(playerSeat, playerUsername, tileName)
+        elif 'end_turn_action' in request.POST:
+            playerSeat = int(request.POST.get('player_seat'))
+            playerUsername = request.POST.get('player_username')
+            endTurn = request.POST.get('end_turn_action')
+
+            testGame.end_turn(playerSeat)
 
     return render(request, 'game_board.html', {'testGame': testGame})
