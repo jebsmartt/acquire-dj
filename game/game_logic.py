@@ -100,6 +100,9 @@ class Game:
     def end_turn(self, playerSeat):
         for player in self.players:
             if player.seat == playerSeat:
+                # draw a tile
+                player.draw_tile(self.tileBag)
+                # make them inactive
                 player.active = False
         self.activePlayerIndex = (self.activePlayerIndex + 1) % len(self.players)
         for player in self.players:
